@@ -8,7 +8,7 @@ all: blink.out
 
 USBPORT=/dev/ttyACM0
 
-%.out: %.check
+%.out: %.c
 	$(CC) $(CFLAGS) $< -o $@
 
 %.hex: %.out
@@ -17,3 +17,6 @@ USBPORT=/dev/ttyACM0
 #Upload to board
 install.%: %.hex
 	avrdude -F -V -c arduino -p ATMEGA328P -P $(USBPORT) -b 115200 -U flash:w:$<
+
+clean:
+	rm -f *.hex *.out
